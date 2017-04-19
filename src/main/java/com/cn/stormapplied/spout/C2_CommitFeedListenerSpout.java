@@ -40,7 +40,7 @@ public class C2_CommitFeedListenerSpout extends BaseRichSpout {
             ClassLoader loader = C2_CommitFeedListenerSpout.class.getClassLoader();
             java.net.URL url = loader.getResource("");
             //java.net.URL url1 = ClassLoader.getSystemClassLoader("");
-            commits = IOUtils.readLines(ClassLoader.getSystemResourceAsStream("changelog.txt"),
+            commits = IOUtils.readLines(ClassLoader.getSystemResourceAsStream("changelog_05.txt"),
                     Charset.defaultCharset().name());
         }
         catch(IOException e) {
@@ -50,7 +50,9 @@ public class C2_CommitFeedListenerSpout extends BaseRichSpout {
 
     @Override
     public void nextTuple() {
+        long count = 0;
         for (String commit : this.commits) {
+            ++count;
             outputCollector.emit(new Values(commit));
         }
     }
