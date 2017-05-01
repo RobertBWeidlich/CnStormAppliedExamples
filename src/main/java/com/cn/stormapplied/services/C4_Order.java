@@ -1,4 +1,4 @@
-package com.cn.stormapplied.util;
+package com.cn.stormapplied.services;
 
 import java.io.Serializable;
 
@@ -9,5 +9,4 @@ public class C4_Order {
     private String creditCardExpiration;
     private int    creditCardCode;
     private double chargedAmount;
-
 }
