@@ -43,6 +43,8 @@ public class C3_CheckinsSpout extends BaseRichSpout {
         String checkin = checkins.get(nextEmitIndex);
         String[] parts = checkin.split(",");
         Long time = Long.valueOf(parts[0]);
+        System.out.println("time: " + time);
+        System.out.println();
         String address = parts[1];
         outputCollector.emit(new Values(time, address));
 
