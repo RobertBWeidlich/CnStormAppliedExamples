@@ -7,7 +7,7 @@ public class C4_OrderDao {
         return true;
     }
 
-    public void updateStatusToReady(C4_Order order) {
+    public void updateStatusToReadyToShip(C4_Order order) {
 
     }
 
