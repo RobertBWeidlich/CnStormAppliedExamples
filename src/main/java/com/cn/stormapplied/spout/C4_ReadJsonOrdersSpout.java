@@ -20,18 +20,18 @@ import backtype.storm.utils.Utils;
 
 import com.cn.stormapplied.services.C4_Order;
 
-public class C4_ReadJsonOrders extends BaseRichSpout {
+public class C4_ReadJsonOrdersSpout extends BaseRichSpout {
     private SpoutOutputCollector outputCollector;
     private List<C4_Order>       orders;
 
     private List<C4_Order> convertJsonList(List<String> jsonList) {
-        List<C4_Order> orders - new ArrayList<Order>(jsonList.size);
+        List<C4_Order> orders = new ArrayList<C4_Order>(jsonList.size());
         Gson gson = new Gson();
         for (String json : jsonList) {
-            C4_Order order = gson.fromJson(json, Order.class);
+            C4_Order order = gson.fromJson(json, C4_Order.class);
             orders.add(order);
         }
-        return orders
+        return orders;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class C4_ReadJsonOrders extends BaseRichSpout {
                     Charset.defaultCharset().name());
             this.orders = convertJsonList(jsonList);
         } catch (IOException e) {
-            throw new RuntimeException(e)
+            throw new RuntimeException(e);
         }
     }
 

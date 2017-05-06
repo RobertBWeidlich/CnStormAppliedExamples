@@ -13,7 +13,7 @@ import com.cn.stormapplied.services.C4_OrderDao;
 
 import java.util.Map;
 
-public class C4_AuthorizedCreditCard {
+public class C4_AuthorizedCreditCardBolt extends BaseBasicBolt {
     private C4_AuthorizationService authorizationService;
     private C4_OrderDao             orderDao;
 
@@ -33,15 +33,10 @@ public class C4_AuthorizedCreditCard {
         C4_Order order = (C4_Order)tuple.getValueByField("order");
         boolean isAuthorized = authorizationService.authorize(order);
         if (isAuthorized) {
-            orderDao.updateStatusToDenied(order);
-            orderDao.updateStatusToReadyToShip();
+            orderDao.updateStatusToReadyToShip(order);
         }
         else {
             orderDao.updateStatusToDenied(order);
         }
-
-
     }
-
-
 }

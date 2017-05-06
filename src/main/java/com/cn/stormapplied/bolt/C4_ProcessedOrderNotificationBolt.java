@@ -10,11 +10,11 @@ import com.cn.stormapplied.services.C4_NotificationService;
 
 import java.util.Map;
 
-public class C4_ProcessedOrderNotification {
+public class C4_ProcessedOrderNotificationBolt extends BaseBasicBolt {
     private C4_NotificationService notificationService;
 
     @Override
-    declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
+    public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
         // no output from this spout
     }
 
@@ -25,7 +25,7 @@ public class C4_ProcessedOrderNotification {
 
     @Override
     public void execute(Tuple tuple, BasicOutputCollector outputCollector) {
-        C4_Order order = (Order)tuple.getValueByField("order");
-        notificationService.notifyOrderHasBeenProcessed("order");
+        C4_Order order = (C4_Order)tuple.getValueByField("order");
+        notificationService.notifyOrderHasBeenProcessed(order);
     }
 }

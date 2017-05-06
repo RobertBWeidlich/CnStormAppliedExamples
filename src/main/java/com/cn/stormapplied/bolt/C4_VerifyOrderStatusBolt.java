@@ -12,7 +12,7 @@ import com.cn.stormapplied.services.C4_OrderDao;
 
 import java.util.Map;
 
-public class C4_VerifyOrderStatus {
+public class C4_VerifyOrderStatusBolt extends BaseBasicBolt {
     private C4_OrderDao orderDao;
 
     @Override
@@ -22,12 +22,12 @@ public class C4_VerifyOrderStatus {
 
     @Override
     public void prepare(Map config, TopologyContext context) {
-        this.orderDao = new OrderDao;
+        this.orderDao = new C4_OrderDao();
     }
 
     @Override
     public void execute(Tuple tuple, BasicOutputCollector outputCollector) {
-        C4_Order order = (Order)tuple.getValueByField("order");
+        C4_Order order = (C4_Order)tuple.getValueByField("order");
         if (this.orderDao.isNotReadyToShip(order)) {
             outputCollector.emit(new Values(order));
         }
