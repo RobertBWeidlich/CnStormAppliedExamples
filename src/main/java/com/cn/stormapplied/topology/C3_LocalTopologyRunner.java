@@ -4,6 +4,10 @@ import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.utils.Utils;
 
+/**
+ * todo: delete this class
+ */
+
 public class C3_LocalTopologyRunner {
     private static final int TEN_MINUTES = 600000;
 

@@ -9,6 +9,10 @@ import com.cn.stormapplied.bolt.C3_GeocodeLookupBolt;
 import com.cn.stormapplied.bolt.C3_HeatMapBuilderBolt;
 import com.cn.stormapplied.bolt.C3_PersistorBolt;
 
+/**
+ * todo: delete this class
+ */
+
 public class C3_StormTopologyBuilder {
     public static final String TOPOLOGY_NAME = "realtime-heatmap";
     public static final String CHECKINS_ID = "checkins";
