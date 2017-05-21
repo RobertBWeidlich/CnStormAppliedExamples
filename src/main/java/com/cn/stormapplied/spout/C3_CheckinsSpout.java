@@ -6,6 +6,7 @@ import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseRichSpout;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
+import backtype.storm.utils.Utils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class C3_CheckinsSpout extends BaseRichSpout {
         this.nextEmitIndex = 0;
 
         try {
-            checkins = IOUtils.readLines(ClassLoader.getSystemResourceAsStream("checkins.txt"),
+            checkins = IOUtils.readLines(ClassLoader.getSystemResourceAsStream("C3_checkins.txt"),
                     Charset.defaultCharset().name());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -41,13 +42,18 @@ public class C3_CheckinsSpout extends BaseRichSpout {
     @Override
     public void nextTuple() {
         String checkin = checkins.get(nextEmitIndex);
-        String[] parts = checkin.split(",");
-        Long time = Long.valueOf(parts[0]);
-        System.out.println("time: " + time);
-        System.out.println();
-        String address = parts[1];
-        outputCollector.emit(new Values(time, address));
+        if (checkin.startsWith("#")) {
+            Utils.sleep(100);
+        }
+        else {
+            String[] parts = checkin.split(",");
+            Long time = Long.valueOf(parts[0]);
+            System.out.println("time: " + time);
+            System.out.println();
+            String address = parts[1];
+            outputCollector.emit(new Values(time, address));
 
-        nextEmitIndex = (nextEmitIndex + 1) % checkins.size();
+            nextEmitIndex = (nextEmitIndex + 1) % checkins.size();
+        }
     }
 }
